@@ -1,0 +1,145 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2253061224305816642",
+      "lastPropertyId": "2:6943539922745505093",
+      "name": "Playlist",
+      "properties": [
+        {
+          "id": "1:4298641485128554843",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6943539922745505093",
+          "name": "name",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:6772927303034866207"
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:5525243813212276076",
+          "name": "songsList",
+          "targetId": "2:8312977505267041880"
+        }
+      ]
+    },
+    {
+      "id": "2:8312977505267041880",
+      "lastPropertyId": "17:2313028901871639003",
+      "name": "Song",
+      "properties": [
+        {
+          "id": "1:4991855154851063089",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3235044946811817146",
+          "name": "data",
+          "type": 9
+        },
+        {
+          "id": "3:756589210387335240",
+          "name": "uri",
+          "type": 9
+        },
+        {
+          "id": "4:1178913335312036471",
+          "name": "displayName",
+          "type": 9
+        },
+        {
+          "id": "5:7051965870717689817",
+          "name": "displayNameWOExt",
+          "type": 9
+        },
+        {
+          "id": "6:1466376765053298993",
+          "name": "size",
+          "type": 6
+        },
+        {
+          "id": "7:6542489474865137973",
+          "name": "album",
+          "type": 9
+        },
+        {
+          "id": "8:444634442304464572",
+          "name": "albumId",
+          "type": 6
+        },
+        {
+          "id": "9:6344507708385160927",
+          "name": "artist",
+          "type": 9
+        },
+        {
+          "id": "10:7027875744571085152",
+          "name": "artistId",
+          "type": 6
+        },
+        {
+          "id": "11:729834263462345175",
+          "name": "composer",
+          "type": 9
+        },
+        {
+          "id": "12:3420897182157428647",
+          "name": "dateAdded",
+          "type": 6
+        },
+        {
+          "id": "13:90950622396313816",
+          "name": "duration",
+          "type": 6
+        },
+        {
+          "id": "14:2251387470289092216",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "15:656235681924442016",
+          "name": "track",
+          "type": 6
+        },
+        {
+          "id": "16:1184722028201713993",
+          "name": "fileExtension",
+          "type": 9
+        },
+        {
+          "id": "17:2313028901871639003",
+          "name": "audioQueryId",
+          "type": 6
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:8356116923908896564",
+          "name": "playlist",
+          "targetId": "1:2253061224305816642"
+        }
+      ]
+    }
+  ],
+  "lastEntityId": "2:8312977505267041880",
+  "lastIndexId": "1:6772927303034866207",
+  "lastRelationId": "2:8356116923908896564",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
