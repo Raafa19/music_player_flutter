@@ -119,13 +119,6 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                                   icon: const Icon(Icons.menu))
                             ],
                           )
-
-                          // Text(
-                          //   "Siguiente Canción: ${(sequenceState.data?.shuffleModeEnabled ?? false) ? sequenceState.data?.effectiveSequence[(sequenceState.data?.shuffleIndices.indexOf((sequenceState.data?.currentIndex ?? 0)) ?? 0) + 1].tag.title : (sequenceState.data?.effectiveSequence[(sequenceState.data?.currentIndex ?? 0) + 1].tag.title)}",
-                          //   style: const TextStyle(
-                          //       overflow: TextOverflow.ellipsis),
-                          //   maxLines: 1,
-                          // ),
                         ],
                       ),
                     ),

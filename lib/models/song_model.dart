@@ -27,7 +27,7 @@ class Song {
 
   String? uri;
 
-  String displayName;
+  String? displayName;
 
   String? displayNameWOExt;
 
@@ -58,7 +58,7 @@ class Song {
       this.id,
       required this.data,
       this.uri,
-      required this.displayName,
+      this.displayName,
       this.displayNameWOExt,
       required this.size,
       this.album,
@@ -95,22 +95,22 @@ class Song {
 
   static SongModel songToSongModel(Song song) {
     return SongModel({
-      "_id": song.audioQueryId,
+      "_id": song.audioQueryId ?? "",
       "_data": song.data,
-      "_uri": song.uri,
-      "_displayNameWOExt": song.displayNameWOExt,
-      "_displayName": song.displayName,
+      "_uri": song.uri ?? "",
+      "_display_name_wo_ext": song.displayNameWOExt ?? "",
+      "_display_name": song.displayName ?? "",
       "_size": song.size,
-      "album": song.album,
-      "albumId": song.albumId,
-      "artist": song.artist,
-      "artistId": song.artistId,
-      "composer": song.composer,
-      "dateAdded": song.dateAdded,
-      "duration": song.duration,
+      "album": song.album ?? "",
+      "album_id": song.albumId ?? "",
+      "artist": song.artist ?? "",
+      "artist_id": song.artistId ?? "",
+      "composer": song.composer ?? "",
+      "date_added": song.dateAdded ?? "",
+      "duration": song.duration ?? "",
       "title": song.title,
-      "track": song.track,
-      "fileExtension": song.fileExtension,
+      "track": song.track ?? "",
+      "file_extension": song.fileExtension ?? "",
     });
   }
 }

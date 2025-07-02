@@ -273,7 +273,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final uriOffset = object.uri == null
             ? null
             : fbb.writeString(object.uri!);
-        final displayNameOffset = fbb.writeString(object.displayName);
+        final displayNameOffset = object.displayName == null
+            ? null
+            : fbb.writeString(object.displayName!);
         final displayNameWOExtOffset = object.displayNameWOExt == null
             ? null
             : fbb.writeString(object.displayNameWOExt!);
@@ -332,7 +334,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
         ).vTableGetNullable(buffer, rootOffset, 8);
         final displayNameParam = const fb.StringReader(
           asciiOptimization: true,
-        ).vTableGet(buffer, rootOffset, 10, '');
+        ).vTableGetNullable(buffer, rootOffset, 10);
         final displayNameWOExtParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGetNullable(buffer, rootOffset, 12);

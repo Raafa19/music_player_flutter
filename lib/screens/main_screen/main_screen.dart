@@ -19,9 +19,6 @@ class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   static const List<Tab> tabs = [
     Tab(
-      text: "Canciones",
-    ),
-    Tab(
       text: "Playlists",
     ),
     Tab(
@@ -29,6 +26,9 @@ class _MainScreenState extends State<MainScreen>
     ),
     Tab(
       text: "Álbumes",
+    ),
+    Tab(
+      text: "Canciones",
     )
   ];
 
@@ -57,7 +57,6 @@ class _MainScreenState extends State<MainScreen>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          // title: const Text("Música"),
           toolbarHeight: 15,
           bottom: TabBar(
             controller: _tabController,
@@ -71,15 +70,7 @@ class _MainScreenState extends State<MainScreen>
               controller: _tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                const AllSongsTab(),
-                PopScope(
-                  canPop: false,
-                  onPopInvokedWithResult: (didPop, result) {
-                    if (didPop) return;
-                    _tabController.animateTo(0);
-                  },
-                  child: const AllPlaylistsTab(),
-                ),
+                const AllPlaylistsTab(),
                 PopScope(
                   canPop: false,
                   onPopInvokedWithResult: (didPop, result) {
@@ -95,6 +86,14 @@ class _MainScreenState extends State<MainScreen>
                       _tabController.animateTo(0);
                     },
                     child: const AllAlbumsTab()),
+                PopScope(
+                  canPop: false,
+                  onPopInvokedWithResult: (didPop, result) {
+                    if (didPop) return;
+                    _tabController.animateTo(0);
+                  },
+                  child: const AllSongsTab(),
+                ),
               ],
             ),
             StreamBuilder(

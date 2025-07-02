@@ -19,19 +19,24 @@ class AudioService {
   // Load Songs
   Future<ConcatenatingAudioSource> _createLoad(List<SongModel>? songs) async {
     List<AudioSource> sources = [];
+    Set<String> titulos = <String>{};
 
     for (var song in songs!) {
-      sources.add(
-        AudioSource.uri(
-          Uri.parse(song.uri!),
-          tag: songModeltoMediaItem(song),
-        ),
-      );
+      final key =
+          "${song.title.trim().toLowerCase()}-${song.artist?.trim().toLowerCase() ?? ''}";
+      if (titulos.add(key)) {
+        sources.add(
+          AudioSource.uri(
+            Uri.parse(song.uri!),
+            tag: songModeltoMediaItem(song),
+          ),
+        );
+      }
     }
 
     return ConcatenatingAudioSource(
       useLazyPreparation: true,
-      children: sources,
+      children: sources.toSet().toList(),
     );
   }
 
@@ -50,6 +55,7 @@ class AudioService {
           initialIndex: index);
     } else {
       final playlist = await _createLoad(songs);
+
       await _player.setAudioSource(playlist, initialIndex: index);
     }
 
@@ -158,32 +164,6 @@ class AudioService {
 
   Future<bool> requestPermission() async =>
       await _audioQuery.permissionsRequest();
-
-  // PLAYLISTS
-  Future<void> removeFromPlaylist(int playlistId, int audioId) async {
-    await _audioQuery.removeFromPlaylist(playlistId, audioId);
-  }
-
-  Future<void> addToPlaylist(int playlistId, int audioId) async {
-    await _audioQuery.addToPlaylist(playlistId, audioId);
-  }
-
-  Future<void> addMultipleToPlaylist(
-      int playlistId, AlbumModel? album, ArtistModel? artist) async {
-    if (album != null) {
-      List<SongModel> albumSongsList = await allSongsFromAlbum(album);
-
-      for (SongModel song in albumSongsList) {
-        await _audioQuery.addToPlaylist(playlistId, song.id);
-      }
-    } else {
-      List<SongModel> artistSongsList = await allSongsFromArtist(artist!);
-
-      for (SongModel song in artistSongsList) {
-        await _audioQuery.addToPlaylist(playlistId, song.id);
-      }
-    }
-  }
 
   Future<List<PlaylistModel>> allPlaylists() async {
     return _audioQuery.queryPlaylists(sortType: PlaylistSortType.DATE_ADDED);

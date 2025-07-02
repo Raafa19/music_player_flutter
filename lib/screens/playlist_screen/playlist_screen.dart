@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:music_player/models/song_model.dart';
 import 'package:music_player/screens/main_screen/widgets/song_display.dart';
+import 'package:music_player/screens/widgets/remove_from_playlist.dart';
 import 'package:music_player/services/audio_service.dart';
 import 'package:music_player/services/objectbox_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -175,6 +176,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           songs: playlistSongsList.data,
                                           index: index,
                                           shuffle: false);
+                                    },
+                                    onLongPress: () {
+                                      removeSongFromPlaylist(
+                                          context: context,
+                                          audio: playlistSongsList.data?[index],
+                                          playlistId: widget.playlistId);
                                     },
                                     child: SongDisplay(
                                         song: playlistSongsList.data![index])),

@@ -83,6 +83,20 @@ class ObxService {
     }
   }
 
+  /// Elimina una canción de una playlist
+  void removeSongFromPlaylist({required Song song, required int? playlistId}) {
+    if (playlistId == null) return;
+
+    final playlist = _playListBox.get(playlistId);
+    if (playlist == null) return;
+
+    playlist.songsList.removeWhere(
+      (e) => e.audioQueryId == song.audioQueryId,
+    );
+    playlist.songsList.applyToDb();
+    _playListBox.put(playlist);
+  }
+
   Future<void> cleanSongs() async {
     final currentDeviceSongs = await _audioService.allSongs;
     final Set<int> currentIds = currentDeviceSongs.map((s) => s.id).toSet();

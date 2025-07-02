@@ -7,8 +7,8 @@ MediaItem songModeltoMediaItem(SongModel songModel) {
       title: songModel.title,
       album: songModel.album,
       artist: songModel.artist,
+      displayTitle: songModel.displayNameWOExt,
       duration: Duration(milliseconds: songModel.duration!),
-      // artUri: Uri(path: songModel.uri),
       extras: {
         'url': songModel.uri,
       });
@@ -21,6 +21,7 @@ SongModel mediaItemtoSongModel(MediaItem mediaItem) {
     'artist': mediaItem.artist,
     'album': mediaItem.album,
     'duration': mediaItem.duration?.inMilliseconds,
+    '_display_name_wo_ext': mediaItem.displayTitle,
     '_uri': mediaItem.extras!['url'],
   });
 }
