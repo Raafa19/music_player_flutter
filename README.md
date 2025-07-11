@@ -1,3 +1,5 @@
-# music_player_2
+# Reproductor de Música en Flutter
 
-A new Flutter project.
+Aplicación realizada para prácticar Flutter (y para escuchar música offline).
+
+Siéntase libre de estudiar la aplicación (y de utilizar de manera gratuita)
