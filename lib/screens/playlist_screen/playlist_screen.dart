@@ -176,6 +176,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                                           songs: playlistSongsList.data,
                                           index: index,
                                           shuffle: false);
+                                      Navigator.pop(context);
                                     },
                                     onLongPress: () {
                                       removeSongFromPlaylist(
@@ -203,6 +204,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                           index: Random()
                               .nextInt(playlistSongsList.data!.length - 1),
                           shuffle: true);
+                      Navigator.pop(context);
                     },
                   ),
                 );

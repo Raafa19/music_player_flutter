@@ -47,6 +47,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                     songs: albumSongsList.data,
                                     index: index,
                                     shuffle: false);
+                                Navigator.pop(context);
                               },
                               onLongPress: () async {
                                 await addSongToPlaylist(
@@ -71,6 +72,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     songs: albumSongsList.data ?? List.empty(),
                     index: Random().nextInt(albumSongsList.data!.length - 1),
                     shuffle: true);
+                Navigator.pop(context);
               },
             ),
           );

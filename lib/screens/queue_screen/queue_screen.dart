@@ -16,6 +16,7 @@ class QueueScreen extends StatefulWidget {
 
 class _QueueScreenState extends State<QueueScreen> {
   final _audioService = AudioService();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,7 @@ class _QueueScreenState extends State<QueueScreen> {
                     ),
                     Expanded(
                       child: ListView.builder(
+                        controller: scrollController,
                         itemCount: queueCount(),
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -102,6 +104,9 @@ class _QueueScreenState extends State<QueueScreen> {
                                       trueCurrentIndex() + index + 1]
                                   .tag
                                   .extras["url"]));
+                              scrollController.animateTo(0,
+                                  duration: const Duration(milliseconds: 150),
+                                  curve: Curves.easeIn);
                             },
                           );
                         },
