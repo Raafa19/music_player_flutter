@@ -22,24 +22,52 @@ class QueueSongDisplay extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            Text(
-              song.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              width: 50,
+              child: QueryArtworkWidget(
+                id: song.id,
+                type: ArtworkType.AUDIO,
+                size: 100,
+                quality: 100,
+                artworkBorder: BorderRadius.zero,
+                keepOldArtwork: true,
+                nullArtworkWidget: Container(
+                  width: 50,
+                  color: const Color.fromARGB(255, 78, 76, 76),
+                  child: const Center(
+                    child: Icon(
+                      Icons.music_note,
+                      size: 35,
+                    ),
+                  ),
+                ),
               ),
             ),
-            Text(
-              song.artist ?? "Desconocido",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.6)),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  song.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  song.artist ?? "Desconocido",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.6)),
+                ),
+              ],
             ),
           ],
         ),
