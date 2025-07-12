@@ -95,21 +95,21 @@ class Song {
 
   static SongModel songToSongModel(Song song) {
     return SongModel({
-      "_id": song.audioQueryId ?? "",
+      "_id": song.audioQueryId ?? 0,
       "_data": song.data,
       "_uri": song.uri ?? "",
       "_display_name_wo_ext": song.displayNameWOExt ?? "",
       "_display_name": song.displayName ?? "",
       "_size": song.size,
-      "album": song.album ?? "",
-      "album_id": song.albumId ?? "",
-      "artist": song.artist ?? "",
-      "artist_id": song.artistId ?? "",
-      "composer": song.composer ?? "",
-      "date_added": song.dateAdded ?? "",
-      "duration": song.duration ?? "",
+      "album": song.album,
+      "album_id": song.albumId,
+      "artist": song.artist,
+      "artist_id": song.artistId,
+      "composer": song.composer,
+      "date_added": song.dateAdded,
+      "duration": song.duration,
       "title": song.title,
-      "track": song.track ?? "",
+      "track": song.track,
       "file_extension": song.fileExtension ?? "",
     });
   }

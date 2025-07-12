@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/models/song_model.dart';
 import 'package:music_player/screens/player_screen/widgets/player_playbar.dart';
 import 'package:music_player/screens/player_screen/widgets/player_seekbar.dart';
 import 'package:music_player/screens/queue_screen/queue_screen.dart';
 import 'package:music_player/services/audio_service.dart';
+import 'package:music_player/services/objectbox_service.dart';
+import 'package:music_player/utils/media_item.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerModalScreen extends StatefulWidget {
@@ -74,29 +77,96 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                           ),
                           SizedBox(
                             height: alto * 0.1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  sequenceState.data?.currentSource?.tag.title
-                                          .toString() ??
-                                      "-",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      overflow: TextOverflow.ellipsis),
-                                  maxLines: 1,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      sequenceState
+                                              .data?.currentSource?.tag.title
+                                              .toString() ??
+                                          "-",
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          overflow: TextOverflow.ellipsis),
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      sequenceState
+                                              .data?.currentSource?.tag.artist
+                                              .toString() ??
+                                          "Desconocido",
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          overflow: TextOverflow.ellipsis),
+                                      maxLines: 1,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  sequenceState.data?.currentSource?.tag.artist
-                                          .toString() ??
-                                      "Desconocido",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      overflow: TextOverflow.ellipsis),
-                                  maxLines: 1,
-                                ),
+                                StreamBuilder(
+                                    stream: obx.streamFavoritePlaylistSongs(),
+                                    builder: (context, favorites) {
+                                      List<SongModel>? songs = favorites.data;
+                                      if (songs != null) {
+                                        if (songs
+                                            .where(
+                                              (element) =>
+                                                  element.id.toString() ==
+                                                  sequenceState.data
+                                                      ?.currentSource?.tag.id,
+                                            )
+                                            .isNotEmpty) {
+                                          return IconButton(
+                                              onPressed: () {
+                                                obx.removeSongFromFavorite(
+                                                    Song.songModeltoSong(
+                                                        mediaItemtoSongModel(
+                                                            sequenceState
+                                                                .data
+                                                                ?.currentSource
+                                                                ?.tag)));
+                                                setState(() {});
+                                              },
+                                              icon: const Icon(Icons.favorite,
+                                                  size: 30, color: Colors.red));
+                                        }
+                                        return IconButton(
+                                            onPressed: () {
+                                              obx.addSongToFavorites(
+                                                  Song.songModeltoSong(
+                                                      mediaItemtoSongModel(
+                                                          sequenceState
+                                                              .data
+                                                              ?.currentSource
+                                                              ?.tag)));
+                                              setState(() {});
+                                            },
+                                            icon: const Icon(
+                                              Icons.favorite_border,
+                                              size: 30,
+                                            ));
+                                      } else {
+                                        return IconButton(
+                                            onPressed: () {
+                                              obx.addSongToFavorites(
+                                                  Song.songModeltoSong(
+                                                      mediaItemtoSongModel(
+                                                          sequenceState
+                                                              .data
+                                                              ?.currentSource
+                                                              ?.tag)));
+                                              setState(() {});
+                                            },
+                                            icon: const Icon(
+                                              Icons.favorite_border,
+                                              size: 30,
+                                            ));
+                                      }
+                                    }),
                               ],
                             ),
                           ),

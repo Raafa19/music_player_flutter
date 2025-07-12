@@ -7,10 +7,15 @@ MediaItem songModeltoMediaItem(SongModel songModel) {
       title: songModel.title,
       album: songModel.album,
       artist: songModel.artist,
-      displayTitle: songModel.displayNameWOExt,
+      displayTitle: songModel.title,
       duration: Duration(milliseconds: songModel.duration!),
       extras: {
         'url': songModel.uri,
+        'displayNameWoExt': songModel.displayNameWOExt,
+        'data': songModel.data,
+        'displayName': songModel.displayName,
+        'size': songModel.size,
+        'fileExtension': songModel.fileExtension
       });
 }
 
@@ -21,7 +26,11 @@ SongModel mediaItemtoSongModel(MediaItem mediaItem) {
     'artist': mediaItem.artist,
     'album': mediaItem.album,
     'duration': mediaItem.duration?.inMilliseconds,
-    '_display_name_wo_ext': mediaItem.displayTitle,
+    '_display_name_wo_ext': mediaItem.extras!['displayNameWoExt'],
     '_uri': mediaItem.extras!['url'],
+    '_data': mediaItem.extras!['data'],
+    '_display_name': mediaItem.extras!['displayName'],
+    '_size': mediaItem.extras!['size'],
+    'file_extension': mediaItem.extras!['fileExtension']
   });
 }

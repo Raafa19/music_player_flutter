@@ -116,44 +116,57 @@ class _PlayListScreenState extends State<PlayListScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: obx.playlistById(widget.playlistId),
+        stream: obx.streamPlaylistById(widget.playlistId),
         builder: (context, playlist) {
           return StreamBuilder<List<SongModel>>(
-              stream: obx.streamCancionesDePlaylist(playlist.data?.id),
+              stream: obx.streamPlaylistSongs(playlist.data?.id),
               builder: (context, playlistSongsList) {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text(playlist.data?.name ?? "-"),
                     actions: [
-                      PopupMenuButton(
-                        itemBuilder: (context) {
-                          return [
-                            const PopupMenuItem(
-                              value: 0,
-                              child: Text("Editar Playlist"),
-                            ),
-                            const PopupMenuItem(
-                              value: 1,
-                              child: Text("Eliminar Playlist"),
-                            ),
-                            const PopupMenuItem(
-                              value: 2,
-                              child: Text("Eliminar Múltiples Canciones"),
-                            ),
-                          ];
-                        },
-                        onSelected: (value) async {
-                          switch (value) {
-                            case 0:
-                              await editPlaylist(playlist.data?.name ?? "");
-                              break;
-                            case 1:
-                              await eliminarPlaylist();
-                              break;
-                            default:
-                          }
-                        },
-                      )
+                      playlist.data?.name == "Favoritas"
+                          ? PopupMenuButton(
+                              itemBuilder: (context) {
+                                return [
+                                  const PopupMenuItem(
+                                    value: 0,
+                                    child: Text("Eliminar Múltiples Canciones"),
+                                  ),
+                                ];
+                              },
+                              onSelected: (value) async {},
+                            )
+                          : PopupMenuButton(
+                              itemBuilder: (context) {
+                                return [
+                                  const PopupMenuItem(
+                                    value: 0,
+                                    child: Text("Editar Playlist"),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 1,
+                                    child: Text("Eliminar Playlist"),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: 2,
+                                    child: Text("Eliminar Múltiples Canciones"),
+                                  ),
+                                ];
+                              },
+                              onSelected: (value) async {
+                                switch (value) {
+                                  case 0:
+                                    await editPlaylist(
+                                        playlist.data?.name ?? "");
+                                    break;
+                                  case 1:
+                                    await eliminarPlaylist();
+                                    break;
+                                  default:
+                                }
+                              },
+                            )
                     ],
                   ),
                   body: Builder(

@@ -67,6 +67,15 @@ class AudioService {
   // Query Songs
   Future<List<SongModel>> get allSongs => _audioQuery.querySongs();
 
+  Future<SongModel> querySongById(int id) async {
+    var songs = await allSongs;
+    return songs
+        .where(
+          (element) => element.id == id,
+        )
+        .first;
+  }
+
   Future<List<SongModel>> songsByArtist(ArtistModel artist) =>
       _audioQuery.queryAudiosFrom(AudiosFromType.ARTIST, artist.artist);
 
