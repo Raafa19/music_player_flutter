@@ -12,9 +12,9 @@ class AudioService {
   static final _audioQuery = OnAudioQuery();
   static final _player = AudioPlayer();
 
-  void dispose() {
-    _player.dispose();
-  }
+  // void dispose() {
+  //   _player.dispose();
+  // }
 
   // Load Songs
   Future<ConcatenatingAudioSource> _createLoad(List<SongModel>? songs) async {

@@ -41,7 +41,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                           0,
                       type: ArtworkType.AUDIO,
                       artworkBorder: BorderRadius.circular(5),
-                      keepOldArtwork: true,
+                      //keepOldArtwork: true,
                       size: 360,
                       quality: 100,
                       nullArtworkWidget: Container(

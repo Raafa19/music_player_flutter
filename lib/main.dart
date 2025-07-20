@@ -42,11 +42,11 @@ class _MusicPlayerAppState extends State<MusicPlayerApp> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _audioService.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _audioService.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
