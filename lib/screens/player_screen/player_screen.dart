@@ -38,7 +38,7 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
           stream: _audioService.sequenceStateStream,
           builder: (context, sequenceState) {
             return StreamBuilder(
-                stream: _audioService.currentIndexStream,
+                stream: _audioService.currentIndexStream(),
                 builder: (context, currentIndex) {
                   return Container(
                     color: Theme.of(context).colorScheme.surface,
@@ -60,7 +60,7 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                               size: 360,
                               quality: 100,
                               artworkBorder: BorderRadius.zero,
-                              //keepOldArtwork: true,
+                              keepOldArtwork: true,
                               nullArtworkWidget: Container(
                                 color: const Color.fromARGB(255, 78, 76, 76),
                                 child: const Center(

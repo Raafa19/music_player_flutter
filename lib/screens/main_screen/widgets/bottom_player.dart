@@ -41,7 +41,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                           0,
                       type: ArtworkType.AUDIO,
                       artworkBorder: BorderRadius.circular(5),
-                      //keepOldArtwork: true,
+                      keepOldArtwork: true,
                       size: 360,
                       quality: 100,
                       nullArtworkWidget: Container(
@@ -87,7 +87,7 @@ class _BottomPlayerState extends State<BottomPlayer> {
                   ),
                 ),
                 StreamBuilder(
-                    stream: _audioService.playing,
+                    stream: _audioService.playing(),
                     builder: (context, playing) {
                       return IconButton(
                         onPressed: () async {

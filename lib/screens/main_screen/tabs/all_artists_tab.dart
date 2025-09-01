@@ -21,7 +21,7 @@ class _AllArtistsTabState extends State<AllArtistsTab> {
     double alto = MediaQuery.sizeOf(context).height;
 
     return FutureBuilder<List<ArtistModel>>(
-      future: _audioService.allArtists,
+      future: _audioService.allArtists(),
       builder: (context, allArtistList) {
         if (allArtistList.hasData) {
           return Scrollbar(

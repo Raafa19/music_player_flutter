@@ -16,6 +16,10 @@ class AudioService {
   //   _player.dispose();
   // }
 
+  void reindex() async {
+    await _audioQuery.queryWithFilters("", WithFiltersType.ALBUMS);
+  }
+
   // Load Songs
   Future<ConcatenatingAudioSource> _createLoad(List<SongModel>? songs) async {
     List<AudioSource> sources = [];
@@ -65,10 +69,10 @@ class AudioService {
   }
 
   // Query Songs
-  Future<List<SongModel>> get allSongs => _audioQuery.querySongs();
+  Future<List<SongModel>> allSongs() => _audioQuery.querySongs();
 
   Future<SongModel> querySongById(int id) async {
-    var songs = await allSongs;
+    var songs = await allSongs();
     return songs
         .where(
           (element) => element.id == id,
@@ -79,13 +83,13 @@ class AudioService {
   Future<List<SongModel>> songsByArtist(ArtistModel artist) =>
       _audioQuery.queryAudiosFrom(AudiosFromType.ARTIST, artist.artist);
 
-  Future<List<AlbumModel>> get allAlbums => _audioQuery.queryAlbums();
+  Future<List<AlbumModel>> allAlbums() => _audioQuery.queryAlbums();
 
   Future<List<SongModel>> songsInAlbum(AlbumModel album) {
     return _audioQuery.queryAudiosFrom(AudiosFromType.ALBUM, album.album);
   }
 
-  Future<List<ArtistModel>> get allArtists => _audioQuery.queryArtists();
+  Future<List<ArtistModel>> allArtists() => _audioQuery.queryArtists();
 
   Future<List<AlbumModel>> albumsInArtist(ArtistModel artist) {
     return _audioQuery.queryAlbums().then(
@@ -113,11 +117,11 @@ class AudioService {
   Future<void> stop() => _player.stop();
   Future<void> nextSong() => _player.seekToNext();
   Future<void> prevSong() => _player.seekToPrevious();
-  Stream<bool> get playing => _player.playingStream;
+  Stream<bool> playing() => _player.playingStream;
   Future<void> seekTo(int index) => _player.seek(null, index: index);
 
   // Loop Actions
-  Stream<LoopMode> get loopMode => _player.loopModeStream;
+  Stream<LoopMode> loopMode() => _player.loopModeStream;
   void toggleLoop() {
     switch (_player.loopMode) {
       case LoopMode.off:
@@ -132,7 +136,7 @@ class AudioService {
   }
 
   // Shuffle Actions
-  Stream<bool> get shuffleMode => _player.shuffleModeEnabledStream;
+  Stream<bool> shuffleMode() => _player.shuffleModeEnabledStream;
   Future<void> toggleShuffle() {
     if (!_player.shuffleModeEnabled) {
       _player.shuffle();
@@ -141,7 +145,7 @@ class AudioService {
   }
 
   // Songs Streams
-  Stream<int?> get currentIndexStream =>
+  Stream<int?> currentIndexStream() =>
       _player.currentIndexStream.asBroadcastStream();
 
   // Stream get shuffleIndexStream => _player.sequenceStateStream;

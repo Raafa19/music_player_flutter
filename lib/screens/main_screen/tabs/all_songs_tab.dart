@@ -22,7 +22,7 @@ class _AllSongsTabState extends State<AllSongsTab> {
     double alto = MediaQuery.sizeOf(context).height;
 
     return FutureBuilder<List<SongModel>>(
-      future: _audioService.allSongs,
+      future: _audioService.allSongs(),
       builder: (context, allSongsList) {
         if (allSongsList.hasData) {
           return Stack(

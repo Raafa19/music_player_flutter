@@ -36,7 +36,7 @@ class _PlayerPlaybarState extends State<PlayerPlaybar> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           StreamBuilder(
-              stream: _audioService.loopMode,
+              stream: _audioService.loopMode(),
               builder: (context, loopMode) {
                 return IconButton(
                   onPressed: () {
@@ -60,7 +60,7 @@ class _PlayerPlaybarState extends State<PlayerPlaybar> {
                 ),
               ),
               StreamBuilder<bool>(
-                  stream: _audioService.playing,
+                  stream: _audioService.playing(),
                   initialData: false,
                   builder: (context, playing) {
                     return IconButton(
@@ -87,7 +87,7 @@ class _PlayerPlaybarState extends State<PlayerPlaybar> {
             ],
           ),
           StreamBuilder(
-              stream: _audioService.shuffleMode,
+              stream: _audioService.shuffleMode(),
               initialData: false,
               builder: (context, shuffleOn) {
                 return IconButton(

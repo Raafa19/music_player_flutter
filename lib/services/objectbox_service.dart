@@ -90,7 +90,7 @@ class ObxService {
   }
 
   Future<void> cleanSongs() async {
-    final currentDeviceSongs = await _audioService.allSongs;
+    final currentDeviceSongs = await _audioService.allSongs();
     final Set<int> currentIds = currentDeviceSongs.map((s) => s.id).toSet();
 
     final currentBoxSongs = _songsBox.getAll();

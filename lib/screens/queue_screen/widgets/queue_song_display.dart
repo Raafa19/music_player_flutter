@@ -37,7 +37,7 @@ class QueueSongDisplay extends StatelessWidget {
                     size: 100,
                     quality: 100,
                     artworkBorder: BorderRadius.zero,
-                    //keepOldArtwork: true,
+                    keepOldArtwork: true,
                     nullArtworkWidget: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Container(

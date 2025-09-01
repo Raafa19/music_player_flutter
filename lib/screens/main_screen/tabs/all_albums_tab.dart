@@ -19,7 +19,7 @@ class _AllAlbumsTabState extends State<AllAlbumsTab> {
     double alto = MediaQuery.sizeOf(context).height;
 
     return FutureBuilder(
-      future: _audioService.allArtists,
+      future: _audioService.allArtists(),
       builder: (context, allArtistsList) {
         if (allArtistsList.hasData) {
           return ListView.builder(
