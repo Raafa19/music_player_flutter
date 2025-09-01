@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_player/screens/main_screen/widgets/song_display.dart';
 import 'package:music_player/screens/player_screen/widgets/player_playbar.dart';
 import 'package:music_player/screens/queue_screen/widgets/queue_song_display.dart';
 import 'package:music_player/services/audio_service.dart';
-import 'package:music_player/utils/media_item.dart';
 
 class QueueScreen extends StatefulWidget {
   const QueueScreen({super.key});
@@ -91,12 +89,11 @@ class _QueueScreenState extends State<QueueScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             child: QueueSongDisplay(
-                                song: mediaItemtoSongModel(sequenceState
-                                        .data
-                                        ?.effectiveSequence[
-                                            trueCurrentIndex() + index + 1]
-                                        .tag ??
-                                    const MediaItem(id: "0", title: "-"))),
+                                song: sequenceState
+                                    .data
+                                    ?.effectiveSequence[
+                                        trueCurrentIndex() + index + 1]
+                                    .tag),
                             onTap: () {
                               _audioService.seekTo(indexOfSong(sequenceState
                                   .data

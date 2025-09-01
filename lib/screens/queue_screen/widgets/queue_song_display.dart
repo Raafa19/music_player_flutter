@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:music_player/models/song_model.dart';
 import 'package:music_player/services/objectbox_service.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class QueueSongDisplay extends StatelessWidget {
-  final SongModel song;
+  final Song song;
   const QueueSongDisplay({super.key, required this.song});
 
   @override
@@ -32,7 +33,7 @@ class QueueSongDisplay extends StatelessWidget {
                 SizedBox(
                   width: 50,
                   child: QueryArtworkWidget(
-                    id: song.id,
+                    id: song.id ?? 0,
                     type: ArtworkType.AUDIO,
                     size: 100,
                     quality: 100,

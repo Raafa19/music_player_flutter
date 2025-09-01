@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_player/utils/media_item.dart';
+import 'package:music_player/models/song_model.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,12 +17,8 @@ class AudioService {
   //   _player.dispose();
   // }
 
-  void reindex() async {
-    await _audioQuery.queryWithFilters("", WithFiltersType.ALBUMS);
-  }
-
   // Load Songs
-  Future<ConcatenatingAudioSource> _createLoad(List<SongModel>? songs) async {
+  Future<List<AudioSource>> _createLoad(List<SongModel>? songs) async {
     List<AudioSource> sources = [];
     Set<String> titulos = <String>{};
 
@@ -32,21 +29,20 @@ class AudioService {
         sources.add(
           AudioSource.uri(
             Uri.parse(song.uri!),
-            tag: songModeltoMediaItem(song),
+            tag: Song.songModeltoSong(song),
           ),
         );
       }
     }
 
-    return ConcatenatingAudioSource(
-      useLazyPreparation: true,
-      children: sources.toSet().toList(),
-    );
+    return sources.toSet().toList();
   }
+
+  void loadSong() {}
 
   void loadSongs(
       {List<SongModel>? songs,
-      List<IndexedAudioSource>? songsSource,
+      List<AudioSource>? songsSource,
       required int index,
       required bool shuffle}) async {
     if (songs == null && songsSource == null) return;
@@ -54,13 +50,11 @@ class AudioService {
     await stop();
 
     if (songsSource != null) {
-      await _player.setAudioSource(
-          ConcatenatingAudioSource(children: songsSource),
-          initialIndex: index);
+      await _player.setAudioSources(songsSource, initialIndex: index);
     } else {
       final playlist = await _createLoad(songs);
 
-      await _player.setAudioSource(playlist, initialIndex: index);
+      await _player.setAudioSources(playlist, initialIndex: index);
     }
 
     _player.setShuffleModeEnabled(shuffle);
@@ -71,14 +65,14 @@ class AudioService {
   // Query Songs
   Future<List<SongModel>> allSongs() => _audioQuery.querySongs();
 
-  Future<SongModel> querySongById(int id) async {
-    var songs = await allSongs();
-    return songs
-        .where(
-          (element) => element.id == id,
-        )
-        .first;
-  }
+  // Future<SongModel> querySongById(int id) async {
+  //   var songs = await allSongs();
+  //   return songs
+  //       .where(
+  //         (element) => element.id == id,
+  //       )
+  //       .first;
+  // }
 
   Future<List<SongModel>> songsByArtist(ArtistModel artist) =>
       _audioQuery.queryAudiosFrom(AudiosFromType.ARTIST, artist.artist);

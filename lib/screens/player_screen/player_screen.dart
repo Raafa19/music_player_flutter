@@ -5,7 +5,6 @@ import 'package:music_player/screens/player_screen/widgets/player_seekbar.dart';
 import 'package:music_player/screens/queue_screen/queue_screen.dart';
 import 'package:music_player/services/audio_service.dart';
 import 'package:music_player/services/objectbox_service.dart';
-import 'package:music_player/utils/media_item.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlayerModalScreen extends StatefulWidget {
@@ -123,12 +122,8 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                                           return IconButton(
                                               onPressed: () {
                                                 obx.removeSongFromFavorite(
-                                                    Song.songModeltoSong(
-                                                        mediaItemtoSongModel(
-                                                            sequenceState
-                                                                .data
-                                                                ?.currentSource
-                                                                ?.tag)));
+                                                    sequenceState.data
+                                                        ?.currentSource?.tag);
                                                 setState(() {});
                                               },
                                               icon: const Icon(Icons.favorite,
@@ -137,12 +132,8 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                                         return IconButton(
                                             onPressed: () {
                                               obx.addSongToFavorites(
-                                                  Song.songModeltoSong(
-                                                      mediaItemtoSongModel(
-                                                          sequenceState
-                                                              .data
-                                                              ?.currentSource
-                                                              ?.tag)));
+                                                  sequenceState.data
+                                                      ?.currentSource?.tag);
                                               setState(() {});
                                             },
                                             icon: const Icon(
@@ -153,12 +144,8 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                                         return IconButton(
                                             onPressed: () {
                                               obx.addSongToFavorites(
-                                                  Song.songModeltoSong(
-                                                      mediaItemtoSongModel(
-                                                          sequenceState
-                                                              .data
-                                                              ?.currentSource
-                                                              ?.tag)));
+                                                  sequenceState.data
+                                                      ?.currentSource?.tag);
                                               setState(() {});
                                             },
                                             icon: const Icon(

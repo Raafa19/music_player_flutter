@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_player/screens/main_screen/main_screen.dart';
 import 'package:music_player/services/audio_service.dart';
 import 'package:music_player/services/objectbox_service.dart';
@@ -9,13 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-  await JustAudioBackground.init(
-      androidNotificationChannelId:
-          'com.rafamsuarez.music_player.channel.audio',
-      androidNotificationChannelName: 'Music Player Audio',
-      androidNotificationOngoing: false,
-      androidStopForegroundOnPause: false);
 
   obx = await ObxService.create();
 
