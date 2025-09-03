@@ -130,7 +130,10 @@ class _AllPlaylistsTabState extends State<AllPlaylistsTab> {
             stream: _audioService.sequenceStateStream,
             builder: (context, sequenceState) {
               return Positioned(
-                bottom: sequenceState.hasData ? alto * 0.13 : 10,
+                bottom: sequenceState.hasData &&
+                        sequenceState.data!.sequence.isNotEmpty
+                    ? alto * 0.13
+                    : 10,
                 right: 10,
                 child: FloatingActionButton.extended(
                   heroTag: "AddPlaylist",

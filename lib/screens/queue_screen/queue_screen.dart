@@ -71,7 +71,8 @@ class _QueueScreenState extends State<QueueScreen> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                    sequenceState.hasData
+                    sequenceState.hasData &&
+                            sequenceState.data!.sequence.isNotEmpty
                         ? SongDisplay(
                             song: sequenceState.data
                                 ?.effectiveSequence[trueCurrentIndex()].tag)

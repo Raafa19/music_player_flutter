@@ -99,7 +99,8 @@ class _MainScreenState extends State<MainScreen>
             StreamBuilder(
                 stream: _audioService.sequenceStateStream,
                 builder: (context, sequenceState) {
-                  if (sequenceState.hasData) {
+                  if (sequenceState.hasData &&
+                      sequenceState.data!.sequence.isNotEmpty) {
                     return Positioned(
                       bottom: 15,
                       child: InkWell(

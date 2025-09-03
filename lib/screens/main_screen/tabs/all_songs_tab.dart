@@ -58,7 +58,10 @@ class _AllSongsTabState extends State<AllSongsTab> {
                   stream: _audioService.sequenceStateStream,
                   builder: (context, sequenceState) {
                     return Positioned(
-                      bottom: sequenceState.hasData ? alto * 0.13 : 10,
+                      bottom: sequenceState.hasData &&
+                              sequenceState.data!.sequence.isNotEmpty
+                          ? alto * 0.13
+                          : 10,
                       right: 15,
                       child: FloatingActionButton(
                         child: const Icon(Icons.shuffle),

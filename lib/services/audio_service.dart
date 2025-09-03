@@ -21,7 +21,7 @@ class AudioService {
   }
 
   // Load Songs
-  Future<ConcatenatingAudioSource> _createLoad(List<SongModel>? songs) async {
+  Future<List<AudioSource>> _createLoad(List<SongModel>? songs) async {
     List<AudioSource> sources = [];
     Set<String> titulos = <String>{};
 
@@ -38,10 +38,7 @@ class AudioService {
       }
     }
 
-    return ConcatenatingAudioSource(
-      useLazyPreparation: true,
-      children: sources.toSet().toList(),
-    );
+    return sources.toSet().toList();
   }
 
   void loadSongs(
@@ -54,13 +51,11 @@ class AudioService {
     await stop();
 
     if (songsSource != null) {
-      await _player.setAudioSource(
-          ConcatenatingAudioSource(children: songsSource),
-          initialIndex: index);
+      await _player.setAudioSources(songsSource, initialIndex: index);
     } else {
       final playlist = await _createLoad(songs);
 
-      await _player.setAudioSource(playlist, initialIndex: index);
+      await _player.setAudioSources(playlist, initialIndex: index);
     }
 
     _player.setShuffleModeEnabled(shuffle);

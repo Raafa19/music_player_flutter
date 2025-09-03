@@ -77,35 +77,40 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                           ),
                           SizedBox(
                             height: alto * 0.1,
+                            width: ancho,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      sequenceState
-                                              .data?.currentSource?.tag.title
-                                              .toString() ??
-                                          "-",
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          overflow: TextOverflow.ellipsis),
-                                      maxLines: 1,
-                                    ),
-                                    Text(
-                                      sequenceState
-                                              .data?.currentSource?.tag.artist
-                                              .toString() ??
-                                          "Desconocido",
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          overflow: TextOverflow.ellipsis),
-                                      maxLines: 1,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  width: ancho * 0.8,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        sequenceState
+                                                .data?.currentSource?.tag.title
+                                                .toString() ??
+                                            "-",
+                                        style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            overflow: TextOverflow.ellipsis),
+                                        maxLines: 1,
+                                      ),
+                                      Text(
+                                        sequenceState
+                                                .data?.currentSource?.tag.artist
+                                                .toString() ??
+                                            "Desconocido",
+                                        style: const TextStyle(
+                                            fontSize: 18,
+                                            overflow: TextOverflow.ellipsis),
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 StreamBuilder(
                                     stream: obx.streamFavoritePlaylistSongs(),
