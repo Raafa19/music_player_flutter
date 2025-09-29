@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio_background/just_audio_background.dart';
+import 'package:music_player/utils/duration_utils.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongDisplay extends StatelessWidget {
@@ -42,20 +44,40 @@ class SongDisplay extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    song?.title ?? "-",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    width: ancho * 0.5,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          song?.title ?? "-",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          song?.artist ?? "Desconocido",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                   Text(
-                    song?.artist ?? "Desconocido",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                    song is MediaItem
+                        ? durationToString(song?.duration)
+                        : durationToString(
+                            Duration(milliseconds: song?.duration)),
+                    style: TextStyle(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.5),
+                        fontStyle: FontStyle.italic),
+                  )
                 ],
               ),
             ),

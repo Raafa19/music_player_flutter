@@ -23,22 +23,18 @@ class AudioService {
   // Load Songs
   Future<List<AudioSource>> _createLoad(List<SongModel>? songs) async {
     List<AudioSource> sources = [];
-    Set<String> titulos = <String>{};
+    // Set<String> titulos = <String>{};
 
     for (var song in songs!) {
-      final key =
-          "${song.title.trim().toLowerCase()}-${song.artist?.trim().toLowerCase() ?? ''}";
-      if (titulos.add(key)) {
-        sources.add(
-          AudioSource.uri(
-            Uri.parse(song.uri!),
-            tag: songModeltoMediaItem(song),
-          ),
-        );
-      }
+      sources.add(
+        AudioSource.uri(
+          Uri.parse(song.uri!),
+          tag: songModeltoMediaItem(song),
+        ),
+      );
     }
 
-    return sources.toSet().toList();
+    return sources;
   }
 
   void loadSongs(
@@ -46,7 +42,10 @@ class AudioService {
       List<IndexedAudioSource>? songsSource,
       required int index,
       required bool shuffle}) async {
-    if (songs == null && songsSource == null) return;
+    if (songs == null && songsSource == null ||
+        songs!.isEmpty && songsSource!.isEmpty) {
+      return;
+    }
 
     await stop();
 

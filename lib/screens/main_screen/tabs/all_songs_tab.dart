@@ -66,6 +66,10 @@ class _AllSongsTabState extends State<AllSongsTab> {
                       child: FloatingActionButton(
                         child: const Icon(Icons.shuffle),
                         onPressed: () {
+                          if (allSongsList.data == null ||
+                              allSongsList.data!.isEmpty) {
+                            return;
+                          }
                           _audioService.loadSongs(
                               songs: allSongsList.data ?? List.empty(),
                               index: Random()

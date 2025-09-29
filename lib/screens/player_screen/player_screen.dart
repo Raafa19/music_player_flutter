@@ -3,6 +3,7 @@ import 'package:music_player/models/song_model.dart';
 import 'package:music_player/screens/player_screen/widgets/player_playbar.dart';
 import 'package:music_player/screens/player_screen/widgets/player_seekbar.dart';
 import 'package:music_player/screens/queue_screen/queue_screen.dart';
+import 'package:music_player/screens/widgets/add_to_playlist_dialog.dart';
 import 'package:music_player/services/audio_service.dart';
 import 'package:music_player/services/objectbox_service.dart';
 import 'package:music_player/utils/media_item.dart';
@@ -25,19 +26,44 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
     double alto = MediaQuery.sizeOf(context).height;
     double ancho = MediaQuery.sizeOf(context).width;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_downward),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: StreamBuilder(
-          stream: _audioService.sequenceStateStream,
-          builder: (context, sequenceState) {
-            return StreamBuilder(
+    return StreamBuilder(
+        stream: _audioService.sequenceStateStream,
+        builder: (context, sequenceState) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_downward),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              actions: [
+                PopupMenuButton(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        value: 0,
+                        child: Text("Agregar a Playlist"),
+                      ),
+                    ];
+                  },
+                  onSelected: (value) {
+                    switch (value) {
+                      case 0:
+                        addSongToPlaylist(
+                            context,
+                            mediaItemtoSongModel(
+                                sequenceState.data?.currentSource?.tag));
+                        setState(() {});
+                        break;
+                      default:
+                        return;
+                    }
+                  },
+                )
+              ],
+            ),
+            body: StreamBuilder(
                 stream: _audioService.currentIndexStream(),
                 builder: (context, currentIndex) {
                   return Container(
@@ -198,9 +224,9 @@ class _PlayerModalScreenState extends State<PlayerModalScreen> {
                       ),
                     ),
                   );
-                });
-          }),
-    );
+                }),
+          );
+        });
   }
 
   Route _toQueueRoute() {

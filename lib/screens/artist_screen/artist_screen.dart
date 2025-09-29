@@ -68,6 +68,10 @@ class _ArtistScreenState extends State<ArtistScreen> {
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.shuffle),
               onPressed: () {
+                if (artistSongsList.data == null ||
+                    artistSongsList.data!.isEmpty) {
+                  return;
+                }
                 _audioService.loadSongs(
                     songs: artistSongsList.data ?? List.empty(),
                     index: Random().nextInt(artistSongsList.data!.length - 1),

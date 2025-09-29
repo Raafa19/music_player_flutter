@@ -34,25 +34,27 @@ Future<void> addSongToPlaylist(BuildContext context, SongModel audio) async {
                       ),
                     );
                   }
-                  return ListView.builder(
-                    itemCount: allPlaylistList.data?.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return RadioListTile<int?>(
-                        toggleable: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(allPlaylistList.data?[index].name ?? "-"),
-                        value: allPlaylistList.data?[index].id,
-                        groupValue: playlistId,
-                        onChanged: (value) {
-                          setState(
-                            () {
-                              playlistId = value;
-                            },
-                          );
+                  return RadioGroup<int?>(
+                    groupValue: playlistId,
+                    onChanged: (value) {
+                      setState(
+                        () {
+                          playlistId = value;
                         },
                       );
                     },
+                    child: ListView.builder(
+                      itemCount: allPlaylistList.data?.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return RadioListTile<int?>(
+                          toggleable: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(allPlaylistList.data?[index].name ?? "-"),
+                          value: allPlaylistList.data?[index].id,
+                        );
+                      },
+                    ),
                   );
                 }),
           ),
@@ -120,25 +122,27 @@ Future<void> addMultipleToPlaylist(
                       ),
                     );
                   }
-                  return ListView.builder(
-                    itemCount: allPlaylistList.data?.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return RadioListTile<int?>(
-                        toggleable: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(allPlaylistList.data?[index].name ?? "-"),
-                        value: allPlaylistList.data?[index].id,
-                        groupValue: playlistId,
-                        onChanged: (value) {
-                          setState(
-                            () {
-                              playlistId = value;
-                            },
-                          );
+                  return RadioGroup<int?>(
+                    groupValue: playlistId,
+                    onChanged: (value) {
+                      setState(
+                        () {
+                          playlistId = value;
                         },
                       );
                     },
+                    child: ListView.builder(
+                      itemCount: allPlaylistList.data?.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return RadioListTile<int?>(
+                          // toggleable: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(allPlaylistList.data?[index].name ?? "-"),
+                          value: allPlaylistList.data?[index].id,
+                        );
+                      },
+                    ),
                   );
                 }),
           ),

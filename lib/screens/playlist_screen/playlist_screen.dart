@@ -212,8 +212,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.shuffle),
                     onPressed: () {
+                      if (playlistSongsList.data == null ||
+                          playlistSongsList.data!.isEmpty) {
+                        return;
+                      }
                       _audioService.loadSongs(
-                          songs: playlistSongsList.data ?? List.empty(),
+                          songs: playlistSongsList.data,
                           index: Random()
                               .nextInt(playlistSongsList.data!.length - 1),
                           shuffle: true);

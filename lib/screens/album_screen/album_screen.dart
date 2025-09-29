@@ -68,8 +68,12 @@ class _AlbumScreenState extends State<AlbumScreen> {
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.shuffle),
               onPressed: () {
+                if (albumSongsList.data == null ||
+                    albumSongsList.data!.isEmpty) {
+                  return;
+                }
                 _audioService.loadSongs(
-                    songs: albumSongsList.data ?? List.empty(),
+                    songs: albumSongsList.data,
                     index: Random().nextInt(albumSongsList.data!.length - 1),
                     shuffle: true);
                 Navigator.pop(context);
